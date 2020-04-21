@@ -82,11 +82,16 @@ Here we go. (Below steps sourced from https://docs.docker.com/docker-for-windows
 
 1. Open a terminal window - Command Prompt (typically found in Windows Systems in your start menu) or PowerShell. It'll give you the blinking black window asking for some code.
 
-2. Let's check what version of Docker you have installed. Type "docker --version" and then run the code (hit enter). You'll get something like this:
+2. Let's check what version of Docker you have installed. Type 
 
-> docker --version
+> "docker --version" 
 
+and then run the code (hit enter). You'll get something like this:
+
+```sh
+docker --version
 Docker version 19.**.*
+```
 
 This shows you've installed Docker version 19, whatever sub-version number. Great, works as intended. 
 
