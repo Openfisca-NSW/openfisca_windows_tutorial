@@ -423,6 +423,15 @@ Omit --global to set the identity only in this repository.
 
 This tells Github who uploaded these changes. (We're working on a way for this to be supplied in Docker so you don't need to enter this for each container. Stay tuned.)
 
+So run
+
+>   git config --global user.email "you@example.com"
+
+and
+
+>   git config --global user.name "Your Name"
+
+
 3. run
 
 > git push
