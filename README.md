@@ -43,5 +43,24 @@ You'll need:
 - NEED TO CHECK - install Python 3.7 prior? 
 
 Note - it is theoretically possible to get OpenFISCA working on a Windows 7, Windows 8 or Windows 10 Home machine - but this is a labour intensive process that is not guaranteed to work.
-The author of this guide spent a full workday on this task and made no progress. 
 
+The author of this guide spent a full workday on this task and made no progress. Whoops.
+
+*TO DO - DETERMINE WAY TO PULL git config -- global user.email & git config -- global user.name into Docker universal details (note current user has to input user name, password etc for every container when they git commit etc)*
+
+## Installing Docker Desktop
+
+Here's the simple way of putting it - Docker is a way of building an virtual image of a Unix application, in a self-contained "container".
+
+The idea with OpenFISCA is you build these different repositories that act as an application of a specific ruleset - and then pull from different repositories to ensure consistency of terms across legislation.
+
+So you work in a different Docker container for each piece of legislation (or in the case of large pieces of legislation, each section) and then pull it together with the wider NSW base of legislation. 
+
+(And the idea is, whatever you do in a Docker container doesn't impact anything outside of that container, unless it's specifically written to pull from something else.)
+
+You can only install Docker Desktop on Windows 10 Professional because Windows 10 Professional provides Virtual Machine support as native to the platform, which previous Windows versions doesn't.
+
+To install Docker Desktop, go to the above URL, pull the Stable version (unless you're very sure of what you're doing) and then install the .exe. 
+The default settings are sufficient for this task - the only question that might confuse you is whether to run containers based on Linux containers or Windows containers - you'll want to run it on Linux containers. (This can be changed later if required.)
+You'll need to authorise Docker with your system password at some point in the process - this is safe and required to install networking components and manage the Hyper-V VMs. 
+You'll then need to launch Docker Desktop - it'll throw some suggested next steps like providing read access to your C:/ drive (safe, do this unless you'd like some nightmares) and to get a Docker ID (I've done this but haven't delved into the usefulness of it yet.)
