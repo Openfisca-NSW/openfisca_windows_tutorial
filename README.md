@@ -98,12 +98,11 @@ This shows you've installed Docker version 19, whatever sub-version number. Grea
 3. Let's now run the foundational command for coders - "hello world", and put it in a Docker container. 
 run 
 
-> docker run hello-world. 
+> docker run hello-world
 
 You should get something like this. 
 
 ```sh
-docker run hello-world
 
 docker : Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -127,7 +126,6 @@ You'll get something like this:
 
 ```sh
 
-C:\****\****>docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 hello-world         latest              bf756fb1ae65        3 months ago        13.3kB
 
@@ -135,15 +133,157 @@ hello-world         latest              bf756fb1ae65        3 months ago        
 
 Great, it tells you where it's from, what the ID of the relevant image is, when it was created and its size. Perfect. 
 
-5. Let's now look at the container that this image was in. Run "docker container ls --all". 
+5. Let's now look at the container that this image was in. Run 
+
+> docker container ls --all
 
 You'll get something like this. 
 
-C:\****\****>docker container ls --all
+```sh
+
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 da8c6dc82739        hello-world         "/hello"            6 minutes ago       Exited (0) 6 minutes ago                       goofy_wing
 
+```
+
 Cool, so it shows you the Container's ID, the image inside it, how we pulled the relevant image, when it was created, what it's current status is, what port it's running on (if any), and a colloquial name for it.
 
-6. Go read the Docker help pages by running some help commands, like docker --help or docker container --help. Do this as you please!
+6. Go read the Docker help pages by running some help commands, like 
+
+> docker --help 
+
+or 
+
+> docker container --help. 
+
+Do this as you please!
+
+## Getting OpenFISCA running
+
+You're probably reading this OpenFISCA Windows guide with the aim of getting OpenFISCA working, not necessarily learning everything there is to learn about Docker. Let's do that.
+
+In this section we're going to test the test suite that the core OpenFISCA team support, using their methodology.
+
+Before you start this section, figure out a folder to put all of your OpenFISCA stuff in, preferably somewhere easy to find and without spaces in the filepath. For example, I use C:\Users\Liam\Desktop\rules_as_code. 
+
+Alright. Let's do this. 
+
+1. We're first going to set our working folder to the folder you're going to be working in. We're going to use the cd command - "change directory" at the command line level to do this.
+To do this, open a terminal or PowerShell window, and run 
+
+> cd your/folder/path
+
+Here's an example:
+
+> C:\Users\Liam>cd Desktop/rules_as_code
+
+So I'm already in C:\Users\Liam, so I'm going to cd into the specific folder that I want to do this work in, which is on my desktop. So you can now think of this as whenever you refer to cd, you're referring to this folder. 
+
+2. Now we're going to build a container within this folder. To do this, in the same terminal as above, run 
+
+> docker run --rm -it -v %cd%:/rules_as_code -w /rules_as_code python:3.7 bash
+
+What's happening here is we're telling Docker to build a container, with a couple of flags in top for optimisation. 
+
+The first of these is "--rm" - what this goes is it automatically cleans up the container and removes the relevant file system when you exit the container.
+
+For the purpose of OpenFISCA, because you're not going to have this container running 24/7, including this prevents lots of file systems building up on your machine. It's great.
+
+"-it" does something complicated that I won't try to explain (Sara/Asghar if you know more about this, throw something in?) but it essentially makes your container interactive, which is great. We want our code base that we're writing to be interactive.
+
+"-v" defines the Docker volume that the container is going to pull a file from. A volume is essentially a directory or file that exists outside of the container, that can be used to share data between containers. You'll want to set this to the folder you're going to work in. 
+running "-v %cd%:/end_folder" means that instead of having to type out the whole file path (which is boring AND labourious) you can just use the path you've cded to in Step 1. 
+
+"-w" defines the folder that Docker is going to work within. Same principle as above (but you don't need to type out the %cd% because you're already in that volume.)
+This folder should be the same as whatever you set "-v" to - you want your local files and the files in the container to be the same, so you can edit the local files and have that reflected in what's in the container. (and then run tests in the container, and be able to make changes in the local files to impact the tests. You want this!)
+
+python:3.7 bash means you're going to build this container with a python3.7 and a bash image included. You'll need this to run OpenFISCA commands and generally do work across it. 
+
+3. Let's check you've done the above step properly. We're going to check to see what Python libraries are installed in this container, by running 
+
+> pip list 
+
+You should get a list of packages in this container as the result of running this - something like
+
+```sh
+
+ Package    Version
+ ---------- -------
+ pip        *.*.*   
+ setuptools *.*.* 
+ wheel      *.*.* 
+
+```
+ 
+ The version numbers for these don't really matter (at present) but they should be the most updated as possible, unless you're aware of why you'd use a previous version of pip. 
+ 
+ 4. Great - now, let's install the OpenFISCA country template. Let's install it so you can modify it if you choose. 
+ 
+To do this, you'll need to first get the source code for this extension. 
+
+Do this by running 
+
+> git clone https://github.com/openfisca/country-template.git 
+
+This searches the openfisca repository on Github for the OpenFISCA country template, and by searching for the .git file, pulls all of the relevant file into the directory you're working in.
+
+You should then be able to see the country-template folder in your current working directory.
+
+Note that you only need to do this the first time you build a container for this OpenFISCA template (or any OpenFISCA codebase) - unlike the container, these files are stored on your hard drive and will stay once you stop work for the day.
+If you already have this folder and it has stuff in it, it'll return "fatal: destination path 'country-template' already exists and is not an empty directory."
+
+5. Next you need to set your working directory to this new repository. run "cd country-template" to change into this directory.
+
+6. Now install this directory with "make install". It will run a LOT of stuff, most of which you can ignore. Go make a cup of tea or something. 
+(What's happening here is - there's a file in the Github repository called a Makefile. Don't edit it [unless you know what you're doing.] 
+When you make install, it runs a script that pulls all of the relevant libraries and tools needed to use OpenFISCA, and then puts them in the right places in the container. 
+Running one command beats running 80 commands or whatever is in there.)
+
+If you get something like this, you know you've done it right: 
+
+root@8acf57ad8444:/rules_as_code/country-template#
+
+7. Then run "make test". This runs a script that tests all of the default tests in the test OF repository against the legislation in this repository.
+
+You'll get something like this. 
+
+================================================= test session starts ==================================================
+platform linux -- Python 3.7.7, pytest-5.4.1, py-1.8.1, pluggy-0.13.1
+rootdir: /rules_as_code/country-template
+collected 35 items
+
+openfisca_country_template/tests/age.yaml ....
+openfisca_country_template/tests/basic_income.yaml ......
+openfisca_country_template/tests/disposable_income.yaml .........
+openfisca_country_template/tests/housing_allowance.yaml ..
+openfisca_country_template/tests/housing_tax.yaml ...
+openfisca_country_template/tests/income_tax.yaml .
+openfisca_country_template/tests/social_security_contribution.yaml ......
+openfisca_country_template/tests/reforms/modify_social_security_taxation.yaml ...
+openfisca_country_template/tests/situations/income_tax.yaml .
+
+=================================================== warnings summary ===================================================
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245
+  /usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:245: PytestDeprecationWarning: direct construction of YamlFile has been deprecated, please use YamlFile.from_parent
+    return YamlFile(path, parent, self.tax_benefit_system, self.options)
+
+/usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:102: 35 tests with warnings
+  /usr/local/lib/python3.7/site-packages/openfisca_core/tools/test_runner.py:102: PytestDeprecationWarning: direct construction of YamlItem has been deprecated, please use YamlItem.from_parent
+    yield YamlItem('', self, self.tax_benefit_system, test, self.options)
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+=========================================== 35 passed, 44 warnings in 0.23s ============================================
+
+If you get this test session or something similar, you've installed OpenFISCA correctly. If you get XX passed, XX failed and XX warnings, it's installed correctly. 
+
+Congratulations! This is some tricky stuff, and you've nailed it. Give yourself a treat. 
+
 
