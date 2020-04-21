@@ -21,6 +21,7 @@ This guides assumes you do not have:
 - strong coding skills
 
 If you're coming at this from a strong programming/coding background, this guide might be a bit simple to you - I'm going to explain a bunch of core code concepts for the policy/program maker who may not have them. 
+
 Apologies, but it's needed to get these skills to a foundational level. Skip the stuff you already know. :P
 
 Let's get started.
@@ -230,22 +231,47 @@ This searches the openfisca repository on Github for the OpenFISCA country templ
 You should then be able to see the country-template folder in your current working directory.
 
 Note that you only need to do this the first time you build a container for this OpenFISCA template (or any OpenFISCA codebase) - unlike the container, these files are stored on your hard drive and will stay once you stop work for the day.
-If you already have this folder and it has stuff in it, it'll return "fatal: destination path 'country-template' already exists and is not an empty directory."
 
-5. Next you need to set your working directory to this new repository. run "cd country-template" to change into this directory.
+If you already have this folder and it has stuff in it, it'll return 
+
+```sh
+
+fatal: destination path 'country-template' already exists and is not an empty directory.
+
+```
+
+5. Next you need to set your working directory to this new repository. run 
+
+> cd country-template
+
+to change into this directory.
 
 6. Now install this directory with "make install". It will run a LOT of stuff, most of which you can ignore. Go make a cup of tea or something. 
+
 (What's happening here is - there's a file in the Github repository called a Makefile. Don't edit it [unless you know what you're doing.] 
+
 When you make install, it runs a script that pulls all of the relevant libraries and tools needed to use OpenFISCA, and then puts them in the right places in the container. 
+
 Running one command beats running 80 commands or whatever is in there.)
 
 If you get something like this, you know you've done it right: 
 
+```sh
+
 root@8acf57ad8444:/rules_as_code/country-template#
 
-7. Then run "make test". This runs a script that tests all of the default tests in the test OF repository against the legislation in this repository.
+```
+
+7. Then run 
+
+> make test 
+
+This runs a script that tests all of the default tests in the test OF repository against the legislation in this repository.
 
 You'll get something like this. 
+
+
+```sh
 
 ================================================= test session starts ==================================================
 platform linux -- Python 3.7.7, pytest-5.4.1, py-1.8.1, pluggy-0.13.1
@@ -281,6 +307,9 @@ openfisca_country_template/tests/situations/income_tax.yaml .
 
 -- Docs: https://docs.pytest.org/en/latest/warnings.html
 =========================================== 35 passed, 44 warnings in 0.23s ============================================
+
+```
+
 
 If you get this test session or something similar, you've installed OpenFISCA correctly. If you get XX passed, XX failed and XX warnings, it's installed correctly. 
 
