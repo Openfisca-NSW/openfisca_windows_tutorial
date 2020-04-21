@@ -78,13 +78,13 @@ You'll then need to launch Docker Desktop - it'll throw some suggested next step
 
 Here we're going to test that Docker works, build a container and then remove it.
 
-Here we go. (Below steps sourced from https://docs.docker.com/docker-for-windows/.) 
+Here we go. Below steps sourced from https://docs.docker.com/docker-for-windows/
 
 1. Open a terminal window - Command Prompt (typically found in Windows Systems in your start menu) or PowerShell. It'll give you the blinking black window asking for some code.
 
 2. Let's check what version of Docker you have installed. Type 
 
-> "docker --version" 
+> docker --version
 
 and then run the code (hit enter). You'll get something like this:
 
@@ -96,8 +96,13 @@ Docker version 19.**.*
 This shows you've installed Docker version 19, whatever sub-version number. Great, works as intended. 
 
 3. Let's now run the foundational command for coders - "hello world", and put it in a Docker container. 
-run "docker run hello-world". You should get something like this. 
+run 
 
+> docker run hello-world. 
+
+You should get something like this. 
+
+```sh
 > docker run hello-world
 
 docker : Unable to find image 'hello-world:latest' locally
@@ -108,6 +113,7 @@ Status: Downloaded newer image for hello-world:latest
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
+```
 
 Great. Docker is telling us the installation is working correctly. Good good. It should exit out of this container once it runs, but you'll still have your Terminal window. Let's see what happened there.
 
