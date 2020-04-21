@@ -315,4 +315,40 @@ If you get this test session or something similar, you've installed OpenFISCA co
 
 Congratulations! This is some tricky stuff, and you've nailed it. Give yourself a treat. 
 
+## LET'S GET OPENFISCA-NSW GOING
+
+Cool. So this has many of the same steps as above, but also requires using OpenFISCA-NSW as a base system, and then using an ESS repository (let's use NABERS) as an extension of this.
+
+The long-term principle is, we want to build interoperability and compatibility of definitions across all of NSW. By using OpenFISCA-NSW as a base and building legislation off this as an extension, we can ensure that the core entities used in legislation (i.e. people, child, building, etc) are consistent across whole of legislation.
+
+Or, identify where they need to not be identical and then redefine them in turn. 
+
+Let's get on with it. Much of this is the same as the above example, but I'll still go into the same level of detail.
+
+1. We're first going to set our working folder to the folder you're going to be working in. We're going to use the cd command - "change directory" at the command line level to do this.
+
+To do this, open a terminal or PowerShell window, and run cd 
+
+> your/folder/path.
+
+2. Now we're going to build a container within this folder. To do this, in the same terminal as above, run 
+
+> docker run --rm -it -v %cd%:/rules_as_code -w /rules_as_code python:3.7 bash
+
+3. Let's check you've done the above step properly. We're going to check to see what Python libraries are installed in this container, by running "pip list". 
+
+4. Great, here's where we deviate - now, let's pull the OpenFISCA-NSW base repository. Run "git clone https://github.com/Openfisca-NSW/openfisca_nsw_base.git." 
+This pulls the openfisca_nsw_base files into your base rules as code folder. 
+
+In my experience you don't need to install this repo, you just need to have it present in your base folder. 
+
+5. Now go and git clone the relevant extension you want to work in, say, run "git clone https://github.com/Openfisca-NSW/openfisca_nsw_ess_nabers.git". 
+
+6. Now cd into the folder that this repo is cloned to, by running "cd openfisca_nsw_ess_nabers". 
+
+7. And now run "make extension" and it'll install a whole bunch of stuff again...
+
+8. And now run "make test" and it'll run the 500ish tests that currently exist for this repo.
+
+
 
