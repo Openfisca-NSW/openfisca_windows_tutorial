@@ -103,7 +103,7 @@ run
 You should get something like this. 
 
 ```sh
-> docker run hello-world
+docker run hello-world
 
 docker : Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -115,15 +115,23 @@ Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
 
-Great. Docker is telling us the installation is working correctly. Good good. It should exit out of this container once it runs, but you'll still have your Terminal window. Let's see what happened there.
+Great. Docker is telling us the installation is working correctly. 
 
-4. Let's look at the image that was downloaded from Docker, that it pulled from the Docker Hub. Run "docker image ls".
+Good good. It should exit out of this container once it runs, but you'll still have your Terminal window. Let's see what happened there.
+
+4. Let's look at the image that was downloaded from Docker, that it pulled from the Docker Hub. Run 
+
+> docker image ls
 
 You'll get something like this: 
+
+```sh
 
 C:\****\****>docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 hello-world         latest              bf756fb1ae65        3 months ago        13.3kB
+
+```
 
 Great, it tells you where it's from, what the ID of the relevant image is, when it was created and its size. Perfect. 
 
