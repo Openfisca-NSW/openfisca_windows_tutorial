@@ -335,20 +335,44 @@ To do this, open a terminal or PowerShell window, and run cd
 
 > docker run --rm -it -v %cd%:/rules_as_code -w /rules_as_code python:3.7 bash
 
-3. Let's check you've done the above step properly. We're going to check to see what Python libraries are installed in this container, by running "pip list". 
+3. Let's check you've done the above step properly. We're going to check to see what Python libraries are installed in this container, by running 
 
-4. Great, here's where we deviate - now, let's pull the OpenFISCA-NSW base repository. Run "git clone https://github.com/Openfisca-NSW/openfisca_nsw_base.git." 
+> pip list 
+
+4. Great, here's where we deviate - now, let's pull the OpenFISCA-NSW base repository. Run 
+
+> git clone https://github.com/Openfisca-NSW/openfisca_nsw_base.git
+ 
 This pulls the openfisca_nsw_base files into your base rules as code folder. 
 
 In my experience you don't need to install this repo, you just need to have it present in your base folder. 
 
-5. Now go and git clone the relevant extension you want to work in, say, run "git clone https://github.com/Openfisca-NSW/openfisca_nsw_ess_nabers.git". 
+5. Now go and git clone the relevant extension you want to work in, say, run 
 
-6. Now cd into the folder that this repo is cloned to, by running "cd openfisca_nsw_ess_nabers". 
+> git clone https://github.com/Openfisca-NSW/openfisca_nsw_ess_nabers.git
 
-7. And now run "make extension" and it'll install a whole bunch of stuff again...
+6. Now cd into the folder that this repo is cloned to, by running 
 
-8. And now run "make test" and it'll run the 500ish tests that currently exist for this repo.
+> cd openfisca_nsw_ess_nabers
 
+7. And now run 
 
+> make extension
 
+and it'll install a whole bunch of stuff again...
+
+8. And now run 
+
+> make test
+
+ and it'll run the 500ish tests that currently exist for this repo.
+
+Great! You're in a NSW government OpenFISCA repository. 
+
+## Editing files
+
+The easiest way I've found to edit files in an OpenFISCA repository is to use Atom - it's much prettier and easier to use than the command line to edit files.
+
+Open Atom, use File > Open Folder, point it at the folder that contains the repo you want to edit, you'll get a tree view (something like this)
+
+![Atom OpenFISCA tree](/img/atom_openfisca_country_template.png)
