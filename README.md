@@ -186,6 +186,8 @@ So I'm already in C:\Users\Liam, so I'm going to cd into the specific folder tha
 
 What's happening here is we're telling Docker to build a container, with a couple of flags in top for optimisation. 
 
+*Skip to 3. if you don't care about what's actually happening here.*
+
 The first of these is "--rm" - what this goes is it automatically cleans up the container and removes the relevant file system when you exit the container.
 
 For the purpose of OpenFISCA, because you're not going to have this container running 24/7, including this prevents lots of file systems building up on your machine. It's great.
@@ -315,7 +317,7 @@ If you get this test session or something similar, you've installed OpenFISCA co
 
 Congratulations! This is some tricky stuff, and you've nailed it. Give yourself a treat. 
 
-## LET'S GET OPENFISCA-NSW GOING
+## Let's get OpenFISCA-NSW going
 
 Cool. So this has many of the same steps as above, but also requires using OpenFISCA-NSW as a base system, and then using an ESS repository (let's use NABERS) as an extension of this.
 
@@ -330,6 +332,8 @@ Let's get on with it. Much of this is the same as the above example, but I'll st
 To do this, open a terminal or PowerShell window, and run cd 
 
 > your/folder/path.
+
+In the below example I'm going to use cd/Desktop/rules_as_code, as in the previous example.
 
 2. Now we're going to build a container within this folder. To do this, in the same terminal as above, run 
 
@@ -369,6 +373,8 @@ and it'll install a whole bunch of stuff again...
 
 Great! You're in a NSW government OpenFISCA repository. 
 
+Keep this terminal window open while you're editing files - you'll need it to push your changes.
+
 ## Editing files
 
 The easiest way I've found to edit files in an OpenFISCA repository is to use Atom - it's much prettier and easier to use than the command line to edit files.
@@ -376,3 +382,68 @@ The easiest way I've found to edit files in an OpenFISCA repository is to use At
 Open Atom, use File > Open Folder, point it at the folder that contains the repo you want to edit, you'll get a tree view (something like this)
 
 ![Atom OpenFISCA tree](/img/atom_openfisca_country_template.png)
+
+Click on the file you want to edit, make your edits, remember to save them and then make test again - whatever changes you've made should be reflected.
+
+## Uploading changes
+
+Great, you've made some changes in a repository. Now you're ready to upload them to Github for others to use. Here's how to do this.
+
+Here's how to do that.
+
+1. run
+
+> git add -A
+
+What this does is it adds the edits, new files, deletion of files, etc., to the current local working repository, and tells the container that there are some changed files.
+
+2. run
+
+> git commit -m "your comment here"
+
+This stages the files, in preparation for upload. Note that you'll have to also include a comment when you change a file, so someone else (or yourself!) can see the change and understand the impact of changes to files.
+
+Short, concise, informative comments are best - as always.
+
+The first time you do this in a container, it'll ask you for your github email and name, like so:
+
+```sh
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+```
+
+This tells Github who uploaded these changes. (We're working on a way for this to be supplied in Docker so you don't need to enter this for each container. Stay tuned.)
+
+3. run
+
+> git push
+
+If your files are okay to push, and you have rights to push changes to the relevant repository, you'll see something like this
+
+```sh
+
+root@076acbf036ac:/rules_as_code/your_repository_here# git push
+Username for 'https://github.com': your_user_name_here
+Password for 'https://your_user_name_here@github.com': # note that you'll need to enter your Github password here
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (7/7), 564 bytes | 141.00 KiB/s, done.
+Total 7 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), completed with 5 local objects.
+To https://github.com/your_repository/your_repository_here.git
+   b56a1c4..3a7aa64  master -> master
+   
+```
+
+Great! You've uploaded your changes to github. Congratulations!
