@@ -61,6 +61,70 @@ So you work in a different Docker container for each piece of legislation (or in
 You can only install Docker Desktop on Windows 10 Professional because Windows 10 Professional provides Virtual Machine support as native to the platform, which previous Windows versions doesn't.
 
 To install Docker Desktop, go to the above URL, pull the Stable version (unless you're very sure of what you're doing) and then install the .exe. 
+
 The default settings are sufficient for this task - the only question that might confuse you is whether to run containers based on Linux containers or Windows containers - you'll want to run it on Linux containers. (This can be changed later if required.)
+
 You'll need to authorise Docker with your system password at some point in the process - this is safe and required to install networking components and manage the Hyper-V VMs. 
+
 You'll then need to launch Docker Desktop - it'll throw some suggested next steps like providing read access to your C:/ drive (safe, do this unless you'd like some nightmares) and to get a Docker ID (I've done this but haven't delved into the usefulness of it yet.)
+
+## Some Core Docker Concepts
+
+#### Container
+
+#### Image
+
+## Testing Docker Desktop
+
+Here we're going to test that Docker works, build a container and then remove it.
+
+Here we go. (Below steps sourced from https://docs.docker.com/docker-for-windows/.) 
+
+1. Open a terminal window - Command Prompt (typically found in Windows Systems in your start menu) or PowerShell. It'll give you the blinking black window asking for some code.
+
+2. Let's check what version of Docker you have installed. Type "docker --version" and then run the code (hit enter). You'll get something like this:
+
+> docker --version
+
+Docker version 19.**.*
+
+This shows you've installed Docker version 19, whatever sub-version number. Great, works as intended. 
+
+3. Let's now run the foundational command for coders - "hello world", and put it in a Docker container. 
+run "docker run hello-world". You should get something like this. 
+
+> docker run hello-world
+
+docker : Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+1b930d010525: Pull complete
+Digest: sha256:c3b4ada4687bbaa170745b3e4dd8ac3f194ca95b2d0518b417fb47e5879d9b5f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+Great. Docker is telling us the installation is working correctly. Good good. It should exit out of this container once it runs, but you'll still have your Terminal window. Let's see what happened there.
+
+4. Let's look at the image that was downloaded from Docker, that it pulled from the Docker Hub. Run "docker image ls".
+
+You'll get something like this: 
+
+C:\****\****>docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world         latest              bf756fb1ae65        3 months ago        13.3kB
+
+Great, it tells you where it's from, what the ID of the relevant image is, when it was created and its size. Perfect. 
+
+5. Let's now look at the container that this image was in. Run "docker container ls --all". 
+
+You'll get something like this. 
+
+C:\****\****>docker container ls --all
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+da8c6dc82739        hello-world         "/hello"            6 minutes ago       Exited (0) 6 minutes ago                       goofy_wing
+
+Cool, so it shows you the Container's ID, the image inside it, how we pulled the relevant image, when it was created, what it's current status is, what port it's running on (if any), and a colloquial name for it.
+
+6. Go read the Docker help pages by running some help commands, like docker --help or docker container --help. Do this as you please!
+
