@@ -204,7 +204,7 @@ So you can now think of this as whenever you refer to cd, you're referring to th
 
 What's happening here is we're telling Docker to build a container, with a couple of flags in top for optimisation. 
 
-**Skip to 3. if you don't care about what's actually happening here.
+**Skip to 3. if you don't care about what's actually happening here.**
 
 The first of these is "--rm" - what this goes is it automatically cleans up the container and removes the relevant file system when you exit the container.
 
@@ -222,9 +222,11 @@ This folder should be the same as whatever you set "-v" to - you want your local
 
 python:3.7 bash means you're going to build this container with a python3.7 and a bash image included. You'll need this to run OpenFISCA commands and generally do work across it. 
 
-**The explanation of what Step 2 does ends here.
+**The explanation of what Step 2 does ends here.**
 
-3. Let's check you've done the above step properly. We're going to check to see what Python libraries are installed in this container, by running 
+3. Let's check you've done the above step properly. 
+
+We're going to check to see what Python libraries are installed in this container, by running 
 
 > pip list 
 
