@@ -244,7 +244,7 @@ You should get a list of packages in this container as the result of running thi
  
  The version numbers for these don't really matter (at present) but they should be the most updated as possible, unless you're aware of why you'd use a previous version of pip. 
  
- 4. Great - now, let's install the OpenFISCA country template. Let's install it so you can modify it if you choose. 
+ 4. Great - now, let's install the OpenFISCA country template. Let's install it so you can modify it, if you choose. 
  
 To do this, you'll need to first get the source code for this extension. 
 
@@ -339,17 +339,19 @@ openfisca_country_template/tests/situations/income_tax.yaml .
 
 If you get this test session or something similar, you've installed OpenFISCA correctly. If you get XX passed, XX failed and XX warnings, it's installed correctly. 
 
-Congratulations! This is some tricky stuff, and you've nailed it. Give yourself a treat. 
+Congratulations! This is some tricky stuff, and you've nailed it. The hardest bit of the work is done.
 
 ## Let's get OpenFISCA-NSW going
 
 Cool. So this has many of the same steps as above, but also requires using OpenFISCA-NSW as a base system, and then using an ESS repository (let's use NABERS) as an extension of this.
 
-The long-term principle is, we want to build interoperability and compatibility of definitions across all of NSW. By using OpenFISCA-NSW as a base and building legislation off this as an extension, we can ensure that the core entities used in legislation (i.e. people, child, building, etc) are consistent across whole of legislation.
+The long-term principle is, we want to build interoperability and compatibility of definitions across all of NSW. 
 
-Or, identify where they need to not be identical and then redefine them in turn. 
+By using OpenFISCA-NSW as a base and building legislation off this as an extension, we can ensure that the core entities used in legislation (i.e. people, child, building, etc) are consistent across whole of legislation.
 
-Let's get on with it. Much of this is the same as the above example, but I'll still go into the same level of detail.
+Or, identify where they need to not be identical and then redefine them. 
+
+Let's get on with it. **Much of this is the same as the above example, but I'll still go into the same level of detail.**
 
 1. We're first going to set our working folder to the folder you're going to be working in. We're going to use the cd command - "change directory" at the command line level to do this.
 
@@ -408,6 +410,8 @@ Open Atom, use File > Open Folder, point it at the folder that contains the repo
 ![Atom OpenFISCA tree](/img/atom_openfisca_country_template.png)
 
 Click on the file you want to edit, make your edits, remember to save them and then make test again - whatever changes you've made should be reflected.
+
+You could also use something like Notepad++, which I also recommend (and use to double check formatting and other things are consistent from Atom). Other recommendations for text editors to use are welcome!
 
 ## Uploading changes
 
