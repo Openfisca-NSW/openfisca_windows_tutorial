@@ -1,14 +1,30 @@
 # A tutorial to getting OpenFISCA working on Windows.
 
-Good morning.
+Good morning. Evening, afternoon, whatever. Time is a construct.
 
 This is a guide for getting OpenFISCA working on a Windows machine, written specifically from a non-tech, policymaker background.
 
-This guide is specific to the OpenFISCA NSW implementation (but most of the principles should work for other jurisdictions, too.)
+This guide is written with the intent of working with the OpenFISCA NSW implementation (but most of the principles should work for other jurisdictions, too.)
 
-And more specifically this is written for DPIE SPB, who are going to be implementing Rules as Code for the ESS, using OpenFISCA.
+More specifically, this guide was written for the Sustainability Programs Branch in the Department of Planning, Industry and Environment - with the intent of distributing to other policyamkers without an existing knowledge of OpenFISCA.
 
-(Forking of this tutorial for other jurisdictions is welcome.)
+Forking of this repository/guide for your specific jurisdiction is welcome - please credit @liamdmccann for the initial guide. :)
+
+## Guide Principles
+
+This guide is written to the concept of, you can give this guide to a policymaker and they can get themselves set up in OpenFISCA without requiring technical assistance.
+
+If you're a policymaker/rulemaker/program delivery staff, you should be able to get from this section of the guide to being fully up and running in OpenFISCA, without requiring assistance from your technical staff. 
+
+However, you'll likely run into issues through this process - there's some level of technical complexity involved with this. Due to this, this guide is perpetually incomplete.
+
+If you run into a problem that isn't covered by this guide, the best way to respond is to submit a pull request to this repository. That way, not only can you get an answer to your question, but you can contribute to the knowledge in this document through resolving your issue!
+
+If you're coming at this from a strong programming/coding background, this guide might be a bit simple to you - I'm going to explain a bunch of core code concepts for the policy/program maker who may not have them. 
+
+Let's get started.
+
+## Prerequisites
 
 This guide assumes you have:
 - some knowledge of coding, specifically Python, but probably not an expert
@@ -19,14 +35,6 @@ This guides assumes you do not have:
 - knowledge of what Docker does
 - a MacOS machine
 - strong coding skills
-
-If you're coming at this from a strong programming/coding background, this guide might be a bit simple to you - I'm going to explain a bunch of core code concepts for the policy/program maker who may not have them. 
-
-Apologies, but it's needed to get these skills to a foundational level. Skip the stuff you already know. :P
-
-Let's get started.
-
-## Prerequisites
 
 You'll need: 
 
@@ -43,23 +51,29 @@ You'll need:
 - [RECOMMENDED] - Atom - available at atom.io
 - NEED TO CHECK - install Python 3.7 prior? 
 
-Note - it is theoretically possible to get OpenFISCA working on a Windows 7, Windows 8 or Windows 10 Home machine - but this is a labour intensive process that is not guaranteed to work.
-
-The author of this guide spent a full workday on this task and made no progress. Whoops.
+Note - it is theoretically possible to get OpenFISCA working on a Windows 7, Windows 8 or Windows 10 Home machine - but this is a labour intensive process that is not guaranteed to work, and is not recommended.
 
 *TO DO - DETERMINE WAY TO PULL git config -- global user.email & git config -- global user.name into Docker universal details (note current user has to input user name, password etc for every container when they git commit etc)*
 
 ## Installing Docker Desktop
 
-Here's the simple way of putting it - Docker is a way of building an virtual image of a Unix application, in a self-contained "container".
+#### What is Docker Desktop?
 
-The idea with OpenFISCA is you build these different repositories that act as an application of a specific ruleset - and then pull from different repositories to ensure consistency of terms across legislation.
+Here's the simple way of putting it - Docker is a way of building an virtual image of a Unix application, in a self-contained "container". It's a virtual computer on your existing machine. 
 
-So you work in a different Docker container for each piece of legislation (or in the case of large pieces of legislation, each section) and then pull it together with the wider NSW base of legislation. 
+#### Great, but why is this important?
 
-(And the idea is, whatever you do in a Docker container doesn't impact anything outside of that container, unless it's specifically written to pull from something else.)
+The core concept with OpenFISCA is you build these different repositories that act as an application of a specific ruleset - and then pull from different repositories to ensure consistency of terms across legislation.
+
+So, you work in a different Docker container for each piece of legislation (or in the case of large pieces of legislation, each section) and link in with the wider base of NSW legislation - in the long term.
+
+#### Why is having Windows 10 Professional important?
 
 You can only install Docker Desktop on Windows 10 Professional because Windows 10 Professional provides Virtual Machine support as native to the platform, which previous Windows versions doesn't.
+
+You're welcome to try getting Docker Desktop working on Windows 7, 8 or Windows 10 Home, but this is labour intensive and not recommended. If you do this and have success, please make a submission to this repository detailing how you did it!
+
+#### Installing and using Docker Desktop
 
 To install Docker Desktop, go to the above URL, pull the Stable version (unless you're very sure of what you're doing) and then install the .exe. 
 
@@ -77,7 +91,7 @@ You'll then need to launch Docker Desktop - it'll throw some suggested next step
 
 ## Testing Docker Desktop
 
-Here we're going to test that Docker works, build a container and then remove it.
+Here we're going to test that Docker works, by building a container and then removing it.
 
 Here we go. Below steps sourced from https://docs.docker.com/docker-for-windows/
 
